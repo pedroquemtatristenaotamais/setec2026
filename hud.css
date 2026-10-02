@@ -1,0 +1,247 @@
+.hud {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+}
+
+.hud-panel {
+  position: absolute;
+  border: 1px solid rgba(204, 220, 227, 0.12);
+  border-radius: 10px;
+  background: rgba(5, 8, 10, 0.50);
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.22);
+  backdrop-filter: blur(5px);
+}
+
+.mission-card {
+  top: 18px;
+  left: 18px;
+  width: min(360px, calc(100% - 36px));
+  padding: 12px 14px;
+}
+
+.alert-card {
+  top: 18px;
+  left: 50%;
+  min-width: 200px;
+  padding: 10px 15px;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+.health-card {
+  left: 18px;
+  bottom: 18px;
+  width: 220px;
+  padding: 12px 14px;
+}
+
+.weapon-card {
+  right: 18px;
+  bottom: 18px;
+  min-width: 220px;
+  padding: 14px 16px;
+}
+
+.hud-label {
+  display: block;
+  margin-bottom: 6px;
+  color: #77858b;
+  font-size: 0.60rem;
+  font-weight: 900;
+  letter-spacing: 0.17em;
+}
+
+.mission-card strong, .alert-card strong {
+  display: block;
+  color: #dbe4e7;
+  font-size: 0.80rem;
+  line-height: 1.4;
+}
+
+.mission-card small {
+  display: block;
+  margin-top: 7px;
+  color: #728087;
+  font-size: 0.61rem;
+  letter-spacing: 0.11em;
+}
+
+.alert-card strong { color: #c0d9e3; }
+
+.hud-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.hud-row span {
+  color: #8a969b;
+  font-size: 0.65rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+}
+
+.hud-row strong { color: #edf3f4; font-size: 1.35rem; }
+
+.health-track {
+  height: 6px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255,255,255,.08);
+}
+
+.health-track i {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, #8f2823, #cf6a4d);
+  transition: width 130ms ease;
+}
+
+.weapon-title {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  color: #d9e3e6;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.weapon-title small {
+  color: #77848a;
+  font-size: 0.58rem;
+}
+
+.ammo-row {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  margin-top: 4px;
+}
+
+.ammo-row strong { font-size: 2.5rem; line-height: 0.96; }
+.ammo-row span { color: #748087; font-size: 0.78rem; }
+
+.mag-row {
+  display: flex;
+  gap: 5px;
+  margin-top: 11px;
+}
+
+.mag-row b {
+  width: 30px;
+  height: 7px;
+  border-radius: 99px;
+  background: #3f4d50;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.06);
+}
+
+.mag-row b.active { background: #d39b3d; }
+
+.weapon-tip {
+  margin-top: 8px;
+  color: #748087;
+  font-size: 0.58rem;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+}
+
+.crosshair {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 28px;
+  height: 28px;
+  transform: translate(-50%, -50%);
+  opacity: 0.74;
+}
+
+.crosshair .line {
+  position: absolute;
+  display: block;
+  background: rgba(223, 234, 238, 0.86);
+}
+
+.crosshair .top, .crosshair .bottom { width: 2px; height: 8px; left: 13px; }
+.crosshair .top { top: 0; }
+.crosshair .bottom { bottom: 0; }
+.crosshair .left, .crosshair .right { width: 8px; height: 2px; top: 13px; }
+.crosshair .left { left: 0; }
+.crosshair .right { right: 0; }
+.crosshair b {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  left: 12.5px;
+  top: 12.5px;
+  border-radius: 50%;
+  background: rgba(235, 242, 244, 0.92);
+}
+
+.interaction-prompt {
+  position: absolute;
+  top: calc(50% + 34px);
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 6px 10px;
+  border: 1px solid rgba(205, 222, 228, 0.16);
+  border-radius: 999px;
+  color: #d7e3e7;
+  background: rgba(5, 9, 11, 0.60);
+  font-size: 0.65rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+}
+
+.combat-message {
+  position: absolute;
+  left: 50%;
+  top: 65%;
+  transform: translateX(-50%);
+  color: #e9c27a;
+  font-size: 0.74rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-shadow: 0 3px 18px rgba(0,0,0,.8);
+}
+
+.room-banner {
+  position: absolute;
+  right: 20px;
+  top: 96px;
+  z-index: 7;
+  padding: 8px 12px;
+  border-left: 2px solid rgba(194, 154, 89, 0.54);
+  color: rgba(226, 232, 234, 0.77);
+  background: rgba(5, 8, 9, 0.46);
+  font-size: 0.67rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+}
+
+.bottom-help {
+  position: absolute;
+  left: 50%;
+  bottom: 11px;
+  z-index: 7;
+  max-width: calc(100% - 40px);
+  transform: translateX(-50%);
+  color: rgba(201, 215, 220, 0.45);
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  pointer-events: none;
+  text-align: center;
+}
+
+@media (max-width: 640px) {
+  .viewmodel-layer { width: 58vw; min-width: 250px; right: -2vw; bottom: -1vh; }
+  .health-card { width: 170px; }
+  .weapon-card { min-width: 180px; }
+  .alert-card { min-width: 150px; }
+  .mission-card { max-width: 300px; }
+  .bottom-help { display: none; }
+}

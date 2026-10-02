@@ -1,0 +1,43 @@
+.controls-card { width: min(760px, 100%); }
+.pause-card, .game-over-card { width: min(530px, 100%); }
+
+.controls-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.controls-grid > div {
+  display: grid;
+  gap: 7px;
+  min-height: 78px;
+  padding: 14px 15px;
+  border: 1px solid rgba(203, 220, 227, 0.09);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.controls-grid strong {
+  color: #edf3f5;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+}
+
+.controls-grid span {
+  color: #7f8c91;
+  font-size: 0.78rem;
+}
+
+.stage-note {
+  margin-bottom: 18px;
+  color: #758187;
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+
+#back-button, #restart-button { margin-top: 9px; }
+
+@media (max-width: 560px) {
+  .controls-grid { grid-template-columns: 1fr; }
+}

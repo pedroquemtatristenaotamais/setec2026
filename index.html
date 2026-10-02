@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#07090a">
+  <title>Última Luz — Black Site</title>
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/menu.css">
+  <link rel="stylesheet" href="./css/hud.css">
+</head>
+<body>
+  <main id="game-shell">
+    <canvas id="gl-canvas" aria-label="Campo de visão do jogo 3D"></canvas>
+
+    <div id="viewmodel-layer" class="viewmodel-layer hidden" aria-hidden="true">
+      <img id="viewmodel-image" src="./assets/images/ak-cs16-viewmodel.png" alt="Viewmodel da AK-47" draggable="false">
+      <span id="muzzle-flash-view" class="muzzle-flash-view"></span>
+    </div>
+
+    <div id="damage-vignette" class="damage-vignette"></div>
+    <div id="shot-flash" class="shot-flash" aria-hidden="true"></div>
+    <div id="hit-marker" class="hit-marker hidden" aria-hidden="true"><span></span></div>
+
+    <section id="boot-error" class="screen hidden" aria-live="polite">
+      <div class="screen-card error-card">
+        <span class="eyebrow">BLACK SITE // ERROR</span>
+        <h1>WebGL indisponível</h1>
+        <p id="boot-error-message">O navegador não conseguiu inicializar o renderizador.</p>
+        <button class="menu-button" id="retry-button" type="button">TENTAR NOVAMENTE</button>
+      </div>
+    </section>
+
+    <section id="main-menu" class="screen" aria-label="Menu principal">
+      <div class="screen-card main-menu-card">
+        <div class="classified-strip">CLASSIFIED // SECTOR 01 // NIGHT OPERATION</div>
+        <span class="eyebrow">INSTALAÇÃO MILITAR ABANDONADA</span>
+        <h1>ÚLTIMA LUZ</h1>
+        <p class="subtitle">FPS 3D experimental em WebGL puro. Entre, recupere o controle do complexo e sobreviva.</p>
+        <div class="menu-actions">
+          <button class="menu-button primary" id="start-button" type="button">INICIAR OPERAÇÃO</button>
+          <button class="menu-button" id="controls-button" type="button">CONTROLES</button>
+        </div>
+        <p id="startup-status" class="startup-status" aria-live="polite"></p>
+        <div class="menu-specs">
+          <span>WEBGL</span><span>LOW-POLY / HIGH DETAIL</span><span>30 ROUNDS</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="controls-panel" class="screen hidden" aria-label="Controles">
+      <div class="screen-card controls-card">
+        <div class="classified-strip">FIELD MANUAL // OPERATOR</div>
+        <span class="eyebrow">CONTROLES DE COMBATE</span>
+        <h2>CONTROLES</h2>
+        <div class="controls-grid">
+          <div><strong>W A S D</strong><span>Movimentar</span></div>
+          <div><strong>SHIFT</strong><span>Correr</span></div>
+          <div><strong>MOUSE</strong><span>Mirar</span></div>
+          <div><strong>BOTÃO ESQ.</strong><span>Disparar</span></div>
+          <div><strong>R</strong><span>Recarregar</span></div>
+          <div><strong>F</strong><span>Lanterna</span></div>
+          <div><strong>ESC</strong><span>Liberar mouse / pausa</span></div>
+        </div>
+        <p class="stage-note">1 · AK-47 &nbsp; 3 · FACA &nbsp; Q · alternar armas</p>
+        <button class="menu-button" id="back-button" type="button">VOLTAR</button>
+      </div>
+    </section>
+
+    <section id="pause-panel" class="screen hidden" aria-label="Jogo pausado">
+      <div class="screen-card pause-card">
+        <div class="classified-strip">SYSTEM HOLD // POINTER RELEASED</div>
+        <span class="eyebrow">OPERAÇÃO PAUSADA</span>
+        <h2>PAUSADO</h2>
+        <p>Volte a clicar no campo de jogo para retomar o controle da câmera.</p>
+        <button class="menu-button primary" id="resume-button" type="button">CONTINUAR</button>
+        <button class="menu-button" id="restart-button" type="button">REINICIAR OPERAÇÃO</button>
+      </div>
+    </section>
+
+    <section id="game-over" class="screen hidden" aria-label="Fim de jogo">
+      <div class="screen-card game-over-card">
+        <div class="classified-strip">SIGNAL LOST // OPERATOR DOWN</div>
+        <span class="eyebrow">BLACK SITE // FAILURE</span>
+        <h2>VOCÊ FOI DETECTADO</h2>
+        <p>As unidades de segurança localizaram sua posição.</p>
+        <button class="menu-button primary" id="game-over-restart" type="button">REINICIAR</button>
+      </div>
+    </section>
+
+    <section id="hud" class="hud hidden" aria-label="Interface de combate">
+      <div class="hud-panel mission-card">
+        <span class="hud-label">MISSÃO</span>
+        <strong id="objective-text">Recupere o controle do complexo.</strong>
+        <small id="zone-text">CHECKPOINT / ENTRADA</small>
+      </div>
+
+      <div class="hud-panel alert-card">
+        <span class="hud-label">STATUS</span>
+        <strong id="status-text">LANTERNA: ATIVA</strong>
+      </div>
+
+      <div class="hud-panel health-card">
+        <div class="hud-row"><span>VITAL</span><strong id="health-text">100</strong></div>
+        <div class="health-track"><i id="health-fill"></i></div>
+      </div>
+
+      <div class="hud-panel weapon-card">
+        <div class="weapon-title"><span>AK-47</span><small id="weapon-state">READY</small></div>
+        <div class="ammo-row"><strong id="ammo-text">30</strong><span>/ 120</span></div>
+        <div class="mag-row" id="mag-row" aria-label="Carregadores reserva"></div>
+        <div class="weapon-tip">R · recarregar</div>
+      </div>
+
+      <div class="crosshair" aria-hidden="true">
+        <i class="line top"></i>
+        <i class="line right"></i>
+        <i class="line bottom"></i>
+        <i class="line left"></i>
+        <b></b>
+      </div>
+
+      <div id="interaction-prompt" class="interaction-prompt hidden">[ E ] INTERAGIR</div>
+      <div id="combat-message" class="combat-message" aria-live="polite"></div>
+    </section>
+
+    <div id="room-banner" class="room-banner hidden"></div>
+    <div id="bottom-help" class="bottom-help hidden">WASD mover · SHIFT correr · MOUSE mirar · ESQ. usar arma · R recarregar · 1 AK · 3 FACA · Q alternar · F lanterna · ESC liberar mouse</div>
+  </main>
+
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>
